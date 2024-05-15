@@ -34,15 +34,12 @@ public class LocationController {
         if (resultType == null) {
             resultType = "json";
         }
-        LocationResponse locationResponse = restTemplate.getForObject(
+        return restTemplate.getForObject(
                 apiUrl +
                         "/getBusPosByRouteSt" +
                         "?ServiceKey={servicekey}&busRouteId={busRouteId}" +
                         "&startOrd={startOrd}&endOrd={endOrd}&resultType={resultType}",
                 LocationResponse.class,
                 serviceKey, busRouteId, startOrd, endOrd, resultType);
-
-        System.out.println(locationResponse.toString());
-        return locationResponse;
     }
 }
