@@ -1,4 +1,4 @@
-package com.study.busService.dto;
+package com.study.busService.dto.common;
 
 import lombok.Getter;
 
