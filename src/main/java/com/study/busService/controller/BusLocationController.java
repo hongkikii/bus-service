@@ -42,21 +42,27 @@ public class BusLocationController {
     }
 
     @GetMapping("/route-id")
-    public BusLocationResponse<ItemByRouteId> getBy(@RequestParam @NotBlank String serviceKey,
-                                                    @RequestParam @NotBlank @Size(max = 9) String busRouteId,
-                                                    @RequestParam(required = false) @Size(max = 4) String resultType) {
+    public BusLocationResponse<ItemByRouteId> getByRouteId(@RequestParam @NotBlank String serviceKey,
+                                                    @RequestParam @NotBlank @Size(max = 9) String busRouteId) {
         return restTemplate.getForObject(
                 apiUrl +
                         "/getBusPosByRtid" +
                         "?ServiceKey={serviceKey}&busRouteId={busRouteId}" +
                         "&resultType=json",
                 BusLocationResponse.class,
-                serviceKey, busRouteId, resultType);
+                serviceKey, busRouteId);
     }
 
-//    @GetMapping
-//    public BusLocationResponse<ItemByVehicle> getBy() {
-//
-//    }
+    @GetMapping("/vehicle")
+    public BusLocationResponse<ItemByVehicle> getByVehId(@RequestParam @NotBlank String serviceKey,
+                                                    @RequestParam @NotBlank @Size(max = 9) String vehId) {
+        return restTemplate.getForObject(
+                apiUrl +
+                        "/getBusPosByVehId" +
+                        "?ServiceKey={serviceKey}&vehId={vehId}"  +
+                        "&resultType=json",
+                BusLocationResponse.class,
+                serviceKey, vehId);
+    }
 
 }
