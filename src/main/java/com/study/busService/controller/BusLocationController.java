@@ -65,4 +65,17 @@ public class BusLocationController {
                 serviceKey, vehId);
     }
 
+    @GetMapping("/stop-section/low")
+    public BusLocationResponse<ItemInStopSection> getLowInStopSection(@RequestParam @NotBlank String serviceKey,
+                                                                      @RequestParam @NotBlank @Size(max = 9) String busRouteId,
+                                                                      @RequestParam @NotBlank @Size(max = 10) String startOrd,
+                                                                      @RequestParam @NotBlank @Size(max = 10) String endOrd) {
+        return restTemplate.getForObject(
+                apiUrl +
+                        "/getLowBusPosByRouteSt" +
+                        "?ServiceKey={servicekey}&busRouteId={busRouteId}&startOrd={startOrd}&endOrd={endOrd}" +
+                        "&resultType=json",
+                BusLocationResponse.class,
+                serviceKey, busRouteId, startOrd, endOrd);
+    }
 }
