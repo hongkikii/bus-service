@@ -43,7 +43,7 @@ public class BusLocationController {
 
     @GetMapping("/route-id")
     public BusLocationResponse<ItemByRouteId> getByRouteId(@RequestParam @NotBlank String serviceKey,
-                                                    @RequestParam @NotBlank @Size(max = 9) String busRouteId) {
+                                                           @RequestParam @NotBlank @Size(max = 9) String busRouteId) {
         return restTemplate.getForObject(
                 apiUrl +
                         "/getBusPosByRtid" +
@@ -55,7 +55,7 @@ public class BusLocationController {
 
     @GetMapping("/vehicle")
     public BusLocationResponse<ItemByVehicle> getByVehId(@RequestParam @NotBlank String serviceKey,
-                                                    @RequestParam @NotBlank @Size(max = 9) String vehId) {
+                                                         @RequestParam @NotBlank @Size(max = 9) String vehId) {
         return restTemplate.getForObject(
                 apiUrl +
                         "/getBusPosByVehId" +
@@ -77,5 +77,17 @@ public class BusLocationController {
                         "&resultType=json",
                 BusLocationResponse.class,
                 serviceKey, busRouteId, startOrd, endOrd);
+    }
+
+    @GetMapping("/route-id/low")
+    public BusLocationResponse<ItemByRouteId> getLowByRouteId(@RequestParam @NotBlank String serviceKey,
+                                                              @RequestParam @NotBlank @Size(max = 9) String busRouteId) {
+        return restTemplate.getForObject(
+                apiUrl +
+                        "/getLowBusPosByRtid" +
+                        "?ServiceKey={serviceKey}&busRouteId={busRouteId}" +
+                        "&resultType=json",
+                BusLocationResponse.class,
+                serviceKey, busRouteId);
     }
 }
