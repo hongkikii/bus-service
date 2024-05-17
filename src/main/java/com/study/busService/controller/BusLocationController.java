@@ -18,11 +18,12 @@ import org.springframework.web.client.RestTemplate;
 public class BusLocationController {
 
     private final RestTemplate restTemplate;
-    private final String apiUrl;
+    private final String apiCommonUrl;
+    private final String RESULT_TYPE_SETTING = "&resultType=json";
 
-    public BusLocationController(RestTemplate restTemplate, @Value("${bus.location.api.url}") String apiUrl) {
+    public BusLocationController(RestTemplate restTemplate, @Value("${bus.location.api.url}") String apiCommonUrl) {
         this.restTemplate = restTemplate;
-        this.apiUrl = apiUrl;
+        this.apiCommonUrl = apiCommonUrl;
     }
 
     @GetMapping("/stop-section")
@@ -30,29 +31,26 @@ public class BusLocationController {
                                                                    @RequestParam @NotBlank @Size(max = 9) String busRouteId,
                                                                    @RequestParam @NotBlank @Size(max = 10) String startOrd,
                                                                    @RequestParam @NotBlank @Size(max = 10) String endOrd) {
-        return callOutBusApi(apiUrl +
-                "/getBusPosByRouteSt" +
-                "?ServiceKey={servicekey}&busRouteId={busRouteId}&startOrd={startOrd}&endOrd={endOrd}" +
-                "&resultType=json", serviceKey, busRouteId, startOrd, endOrd);
+        return callOutApi("/getBusPosByRouteSt",
+                "?ServiceKey={servicekey}&busRouteId={busRouteId}&startOrd={startOrd}&endOrd={endOrd}",
+                serviceKey, busRouteId, startOrd, endOrd);
     }
 
     @GetMapping("/route-id")
     public BusLocationResponse<ItemByRouteId> getByRouteId(@RequestParam @NotBlank String serviceKey,
                                                            @RequestParam @NotBlank @Size(max = 9) String busRouteId) {
 
-        return callOutBusApi(apiUrl +
-                "/getBusPosByRtid" +
-                "?ServiceKey={serviceKey}&busRouteId={busRouteId}" +
-                "&resultType=json", serviceKey, busRouteId);
+        return callOutApi("/getBusPosByRtid",
+                "?ServiceKey={serviceKey}&busRouteId={busRouteId}",
+                serviceKey, busRouteId);
     }
 
     @GetMapping("/vehicle")
     public BusLocationResponse<ItemByVehicle> getByVehId(@RequestParam @NotBlank String serviceKey,
                                                          @RequestParam @NotBlank @Size(max = 9) String vehId) {
-        return callOutBusApi(apiUrl +
-                "/getBusPosByVehId" +
-                "?ServiceKey={serviceKey}&vehId={vehId}" +
-                "&resultType=json", serviceKey, vehId);
+        return callOutApi("/getBusPosByVehId",
+                "?ServiceKey={serviceKey}&vehId={vehId}",
+                serviceKey, vehId);
     }
 
     @GetMapping("/stop-section/low")
@@ -60,22 +58,20 @@ public class BusLocationController {
                                                                       @RequestParam @NotBlank @Size(max = 9) String busRouteId,
                                                                       @RequestParam @NotBlank @Size(max = 10) String startOrd,
                                                                       @RequestParam @NotBlank @Size(max = 10) String endOrd) {
-        return callOutBusApi(apiUrl +
-                "/getLowBusPosByRouteSt" +
-                "?ServiceKey={servicekey}&busRouteId={busRouteId}&startOrd={startOrd}&endOrd={endOrd}" +
-                "&resultType=json", serviceKey, busRouteId, startOrd, endOrd);
+        return callOutApi("/getLowBusPosByRouteSt",
+                "?ServiceKey={servicekey}&busRouteId={busRouteId}&startOrd={startOrd}&endOrd={endOrd}",
+                serviceKey, busRouteId, startOrd, endOrd);
     }
 
     @GetMapping("/route-id/low")
     public BusLocationResponse<ItemByRouteId> getLowByRouteId(@RequestParam @NotBlank String serviceKey,
                                                               @RequestParam @NotBlank @Size(max = 9) String busRouteId) {
-        return callOutBusApi(apiUrl +
-                "/getLowBusPosByRtid" +
-                "?ServiceKey={serviceKey}&busRouteId={busRouteId}" +
-                "&resultType=json", serviceKey, busRouteId);
+        return callOutApi("/getLowBusPosByRtid",
+                "?ServiceKey={serviceKey}&busRouteId={busRouteId}", serviceKey, busRouteId);
     }
 
-    private BusLocationResponse callOutBusApi(String apiUrl, Object... urlVariables) {
-        return restTemplate.getForObject(apiUrl, BusLocationResponse.class, urlVariables);
+    private BusLocationResponse callOutApi(String uniqueUrl, String requestParams, Object... urlVariables) {
+        return restTemplate.getForObject(apiCommonUrl + uniqueUrl + requestParams + RESULT_TYPE_SETTING,
+                BusLocationResponse.class, urlVariables);
     }
 }
