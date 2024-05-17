@@ -1,16 +1,13 @@
-package com.study.busService.dto;
+package com.study.busService.dto.common;
 
-public class ItemByVehicle {
-    private String vehId;
-    private String stId;
-    private String stOrd;
+public abstract class Bus {
     private String stopFlag;
     private String dataTm;
     private String tmX;
     private String tmY;
     private String posX;
     private String posY;
-    private String plainNo;
+    private String vehld;
     private String busType;
     private String lastStnId;
     private String isFullFlag;

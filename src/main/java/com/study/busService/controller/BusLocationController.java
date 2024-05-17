@@ -1,8 +1,8 @@
 package com.study.busService.controller;
 
-import com.study.busService.dto.ItemByRouteId;
-import com.study.busService.dto.ItemByVehicle;
-import com.study.busService.dto.ItemInStopSection;
+import com.study.busService.dto.BusByRouteId;
+import com.study.busService.dto.BusByVehicle;
+import com.study.busService.dto.BusInStopSection;
 import com.study.busService.dto.common.BusLocationResponse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,18 +27,18 @@ public class BusLocationController {
     }
 
     @GetMapping("/stop-section")
-    public BusLocationResponse<ItemInStopSection> getInStopSection(@RequestParam @NotBlank String serviceKey,
-                                                                   @RequestParam @NotBlank @Size(max = 9) String busRouteId,
-                                                                   @RequestParam @NotBlank @Size(max = 10) String startOrd,
-                                                                   @RequestParam @NotBlank @Size(max = 10) String endOrd) {
+    public BusLocationResponse<BusInStopSection> getInStopSection(@RequestParam @NotBlank String serviceKey,
+                                                                  @RequestParam @NotBlank @Size(max = 9) String busRouteId,
+                                                                  @RequestParam @NotBlank @Size(max = 10) String startOrd,
+                                                                  @RequestParam @NotBlank @Size(max = 10) String endOrd) {
         return callOutApi("/getBusPosByRouteSt",
                 "?ServiceKey={servicekey}&busRouteId={busRouteId}&startOrd={startOrd}&endOrd={endOrd}",
                 serviceKey, busRouteId, startOrd, endOrd);
     }
 
     @GetMapping("/route-id")
-    public BusLocationResponse<ItemByRouteId> getByRouteId(@RequestParam @NotBlank String serviceKey,
-                                                           @RequestParam @NotBlank @Size(max = 9) String busRouteId) {
+    public BusLocationResponse<BusByRouteId> getByRouteId(@RequestParam @NotBlank String serviceKey,
+                                                          @RequestParam @NotBlank @Size(max = 9) String busRouteId) {
 
         return callOutApi("/getBusPosByRtid",
                 "?ServiceKey={serviceKey}&busRouteId={busRouteId}",
@@ -46,26 +46,26 @@ public class BusLocationController {
     }
 
     @GetMapping("/vehicle")
-    public BusLocationResponse<ItemByVehicle> getByVehId(@RequestParam @NotBlank String serviceKey,
-                                                         @RequestParam @NotBlank @Size(max = 9) String vehId) {
+    public BusLocationResponse<BusByVehicle> getByVehId(@RequestParam @NotBlank String serviceKey,
+                                                        @RequestParam @NotBlank @Size(max = 9) String vehId) {
         return callOutApi("/getBusPosByVehId",
                 "?ServiceKey={serviceKey}&vehId={vehId}",
                 serviceKey, vehId);
     }
 
     @GetMapping("/stop-section/low")
-    public BusLocationResponse<ItemInStopSection> getLowInStopSection(@RequestParam @NotBlank String serviceKey,
-                                                                      @RequestParam @NotBlank @Size(max = 9) String busRouteId,
-                                                                      @RequestParam @NotBlank @Size(max = 10) String startOrd,
-                                                                      @RequestParam @NotBlank @Size(max = 10) String endOrd) {
+    public BusLocationResponse<BusInStopSection> getLowInStopSection(@RequestParam @NotBlank String serviceKey,
+                                                                     @RequestParam @NotBlank @Size(max = 9) String busRouteId,
+                                                                     @RequestParam @NotBlank @Size(max = 10) String startOrd,
+                                                                     @RequestParam @NotBlank @Size(max = 10) String endOrd) {
         return callOutApi("/getLowBusPosByRouteSt",
                 "?ServiceKey={servicekey}&busRouteId={busRouteId}&startOrd={startOrd}&endOrd={endOrd}",
                 serviceKey, busRouteId, startOrd, endOrd);
     }
 
     @GetMapping("/route-id/low")
-    public BusLocationResponse<ItemByRouteId> getLowByRouteId(@RequestParam @NotBlank String serviceKey,
-                                                              @RequestParam @NotBlank @Size(max = 9) String busRouteId) {
+    public BusLocationResponse<BusByRouteId> getLowByRouteId(@RequestParam @NotBlank String serviceKey,
+                                                             @RequestParam @NotBlank @Size(max = 9) String busRouteId) {
         return callOutApi("/getLowBusPosByRtid",
                 "?ServiceKey={serviceKey}&busRouteId={busRouteId}", serviceKey, busRouteId);
     }
