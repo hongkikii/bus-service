@@ -3,11 +3,11 @@ package com.study.busService.dto;
 import com.study.busService.dto.common.Bus;
 
 public class BusByRouteId extends Bus {
-    private String sectOrd; // StopSecton, RouteId
+    private String sectionId;
+    private String sectOrd;
     private String fullSectDist;
-    private String sectDist; // StopSection, RouteId
+    private String sectDist;
     private String rtDist;
-    private String sectionId; // StopSection, RouteId
     private String gpsX;
     private String gpsY;
     private String lastStTm;
