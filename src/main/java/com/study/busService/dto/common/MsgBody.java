@@ -4,6 +4,6 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class MsgBody<T> {
+public class MsgBody<T extends Bus> {
     private List<T> itemList;
 }

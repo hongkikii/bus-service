@@ -1,6 +1,9 @@
 package com.study.busService.dto.common;
 
-public abstract class Bus {
+import lombok.Getter;
+
+@Getter
+public class Bus {
     private String vehld;
     private String busType;
     private String stopFlag;
