@@ -24,3 +24,6 @@
 | 3 | 버스위치정보조회 서비스 | getBusPosByVehIdItem | 특정차량위치정보항목조회 | 차량ID로 위치정보를 조회한다 |
 | 4 | 버스위치정보조회 서비스 | getLowBusPosByRouteStList | 교통약자전용노선별특정정류소접근버스위치정보목록조회 | 노선ID와 구간정보로 저상차량들의 위치정보를 조회한다 |
 | 5 | 버스위치정보조회 서비스 | getLowBusPosByRtidList | 교통약자전용노선버스위치정보목록조회 | 노선ID로 저상버스들의 위치정보를 조회한다 |
+
+## ✍🏻 문제 해결 과정 기록
+https://false-challenge-ba9.notion.site/Open-API-a59bcf99bca1484a8d81984ebdae3c5a?pvs=4
